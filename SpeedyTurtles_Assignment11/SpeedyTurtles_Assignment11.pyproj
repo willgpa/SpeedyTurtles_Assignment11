@@ -22,6 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="cleaningPackage\gross_price_rounding.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="cleaningPackage\duplicate_row_remover.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="cleaningPackage\zip_code_adder.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="cleaningPackage\non_fuel_fillter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="cleaningPackage\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -42,6 +54,10 @@
     <Folder Include="cleaningPackage\" />
     <Folder Include="CSVPackage\" />
     <Folder Include="mainPackage\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\fuelPurchaseData-1.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
