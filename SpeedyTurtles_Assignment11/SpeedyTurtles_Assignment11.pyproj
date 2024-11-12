@@ -22,6 +22,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="cleaningPackage\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CSVPackage\CSVProcessor.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CSVPackage\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="mainPackage\main.py">
       <SubType>Code</SubType>
     </Compile>
@@ -30,6 +39,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="cleaningPackage\" />
+    <Folder Include="CSVPackage\" />
     <Folder Include="mainPackage\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
