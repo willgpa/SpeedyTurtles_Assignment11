@@ -4,8 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b18ad106-f66b-4c99-840b-d5aa301d49ec</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>mainPackage\main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -31,10 +30,13 @@
     <Compile Include="cleaningPackage\zip_code_adder.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="cleaningPackage\non_fuel_fillter.py">
+    <Compile Include="cleaningPackage\non_fuel_filter.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="cleaningPackage\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllerPackage\controller.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CSVPackage\CSVProcessor.py">
@@ -49,12 +51,16 @@
     <Compile Include="mainPackage\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="controllerPackage\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cleaningPackage\" />
     <Folder Include="CSVPackage\" />
     <Folder Include="mainPackage\" />
     <Folder Include="Data\" />
+    <Folder Include="controllerPackage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\fuelPurchaseData-1.csv" />
