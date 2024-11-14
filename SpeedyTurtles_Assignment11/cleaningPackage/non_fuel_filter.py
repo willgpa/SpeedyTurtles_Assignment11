@@ -9,7 +9,7 @@ class NonFuelFilter:
         self.anomalies = pd.DataFrame()
 
     def filter_non_fuel_types(self) -> (pd.DataFrame, pd.DataFrame):
-        fuel_types = ['lng', 'gas', 'methanol', 'diesel']  # Adjust this list as needed
+        fuel_types = ['lng', 'gas', 'methanol', 'diesel','LNG', 'biodiesel', 'ethanol','kerosene', 'liquefied natural gas', 'liquefied natural gas','liquid natural gas', 'LNG','propane' ]  # Adjust this list as needed
         non_fuel_anomalies = self.data[~self.data['Fuel Type'].isin(fuel_types)]
         self.data = self.data[self.data['Fuel Type'].isin(fuel_types)]
         
