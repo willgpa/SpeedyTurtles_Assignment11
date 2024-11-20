@@ -15,10 +15,8 @@ class NonFuelFilter:
         
         # Store anomalies for later saving
         self.anomalies = pd.concat([self.anomalies, non_fuel_anomalies])
+        
+        print(f"[INFO] Count of newly added fuel type anomalies: {len(non_fuel_anomalies)}")
         return self.data, self.anomalies
 
-    def save_anomalies(self, folder='data'):
-        if not os.path.exists(folder):
-            os.makedirs(folder)
-        self.anomalies.to_csv(os.path.join(folder, 'dataAnomalies.csv'), index=False)
-
+   

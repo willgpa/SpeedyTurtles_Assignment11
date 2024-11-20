@@ -21,10 +21,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="cleaningPackage\address_formatter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="cleaningPackage\gross_price_rounding.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="cleaningPackage\duplicate_row_remover.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="cleaningPackage\nulldetector.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="cleaningPackage\zip_code_adder.py">
