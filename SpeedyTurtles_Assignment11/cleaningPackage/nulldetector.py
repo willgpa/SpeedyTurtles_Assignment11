@@ -1,3 +1,18 @@
+########################################################################################################################################################################
+# Name: Will Padgett, Aryan Patel                                                                                                                                      #
+# email:  padgetwg@mail.uc.edu, patel7ag@mail.uc.edu                                                                                                                   #
+# Assignment Number: Assignment 11                                                                                                                                     #
+# Due Date:   11/20/2024                                                                                                                                               # 
+# Course #/Section: 4010/001                                                                                                                                           #
+# Semester/Year:   1/4                                                                                                                                                 #
+# Brief Description of the assignment: collaborate with peers to develop a VS project that cleans data from a CSV                                                      #
+# Brief Description of what this module does: This module detects null values in specified columns of the data                                                         #                                       
+#                                                                                                                                                                      #
+# Citations: W3 Schools,GPT 4                                                                                                                                          #
+# Anything else that's relevant:                                                                                                                                       #
+########################################################################################################################################################################
+
+
 import pandas as pd
 
 class NullDetector:
@@ -8,10 +23,12 @@ class NullDetector:
 
     def detect_nulls(self) -> tuple[pd.DataFrame, pd.DataFrame]:
         """
-        Detect anomalies in 'Transaction Number', distinguishing between numpy.nan, "nan" (string), and empty strings.
-        Returns:
-            - Cleaned DataFrame: Data without anomalies.
-            - Anomalies DataFrame: Data with anomalies, unaltered.
+        Detects anomalies in the 'Transaction Number' column, including numpy.nan, "nan" (string), empty strings, 
+        and negative values. The anomalies are returned separately from the cleaned data.
+
+        @return: A tuple containing:
+            - DataFrame with anomalies removed (cleaned data).
+            - DataFrame containing only the rows with anomalies (invalid or missing values).
         """
         # Define invalid string representations
         invalid_strings = {"Null", "null", "nan", ""}

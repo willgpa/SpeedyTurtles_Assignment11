@@ -1,4 +1,16 @@
-# Document here
+########################################################################################################################################################################
+# Name: Will Padgett, Aryan Patel                                                                                                                                      #
+# email:  padgetwg@mail.uc.edu, patel7ag@mail.uc.edu                                                                                                                   #
+# Assignment Number: Assignment 11                                                                                                                                     #
+# Due Date:   11/20/2024                                                                                                                                               # 
+# Course #/Section: 4010/001                                                                                                                                           #
+# Semester/Year:   1/4                                                                                                                                                 #
+# Brief Description of the assignment: collaborate with peers to develop a VS project that cleans data from a CSV                                                      #
+# Brief Description of what this module does: This module provides utilities for processing CSV files, including loading and saving                                    #                                       
+#                                                                                                                                                                      #
+# Citations: W3 Schools,GPT 4                                                                                                                                          #
+# Anything else that's relevant:                                                                                                                                       #
+########################################################################################################################################################################
 
 import csv
 import pandas as pd
@@ -6,7 +18,10 @@ import pandas as pd
 class CSVProcessor:
     def load_csv(self, file_path):
         """
-        Load a CSV while treating 'nan' as a string, not NaN.
+        Loads a CSV file while treating 'nan' as a string, not as NaN.
+
+        @param file_path: Path to the CSV file to be loaded.
+        @return: DataFrame containing the loaded CSV data.
         """
         return pd.read_csv(
             file_path,
@@ -17,10 +32,11 @@ class CSVProcessor:
 
     def save_csv(self, data, file_path, is_anomalies=False):
         """
-        Save the DataFrame to a CSV file. Avoid processing anomalies.
-        :param data: DataFrame to save
-        :param file_path: Path to save the CSV
-        :param is_anomalies: Boolean indicating if the data is anomalies
+        Saves the DataFrame to a CSV file. Handles specific columns like 'Gross Price' to ensure consistent formatting.
+
+        @param data: DataFrame to save to CSV.
+        @param file_path: Path where the CSV file should be saved.
+        @param is_anomalies: Boolean indicating if the data is anomalies, which may skip certain processing steps.
         """
         # Create a copy of the DataFrame to avoid modifying the original
         data = data.copy()

@@ -1,3 +1,18 @@
+########################################################################################################################################################################
+# Name: Will Padgett, Aryan Patel                                                                                                                                      #
+# email:  padgetwg@mail.uc.edu, patel7ag@mail.uc.edu                                                                                                                   #
+# Assignment Number: Assignment 11                                                                                                                                     #
+# Due Date:   11/20/2024                                                                                                                                               # 
+# Course #/Section: 4010/001                                                                                                                                           #
+# Semester/Year:   1/4                                                                                                                                                 #
+# Brief Description of the assignment: collaborate with peers to develop a VS project that cleans data from a CSV                                                      #
+# Brief Description of what this module does: This module adds missing zip codes to the address information using an API                                               #                                       
+#                                                                                                                                                                      #
+# Citations: W3 Schools,GPT 4                                                                                                                                          #
+# Anything else that's relevant:                                                                                                                                       #
+########################################################################################################################################################################
+
+
 import pandas as pd
 import requests
 import re
@@ -19,12 +34,27 @@ class ZipCodeAdder:
     }
 
     def __init__(self, data: pd.DataFrame, api_key: str):
+        """
+        Initializes the ZipCodeAdder with a DataFrame and an API key.
+
+        @param data: DataFrame containing address data.
+        @param api_key: API key for accessing the Zipcodebase API.
+        """
         self.data = data
         self.api_key = api_key
         self.zip_cache = {}  # Cache for storing successful city/state -> ZIP mappings
         self.failed_requests = []  # Track addresses with consistent failures
+        self.added_count = 0
 
     def add_zip_codes(self) -> pd.DataFrame:
+        """
+        Adds missing zip codes to the 'Full Address' column in the DataFrame using the Zipcodebase API.
+
+        The method identifies addresses without zip codes, retrieves the missing zip codes using the API,
+        and appends them to the existing addresses.
+
+        @return: DataFrame with updated addresses containing zip codes.
+        """
         # Pattern to detect existing 5-digit ZIP codes
         zip_code_pattern = re.compile(r'\b\d{5}\b')
         missing_zip = self.data[~self.data['Full Address'].str.contains(zip_code_pattern)]
@@ -49,7 +79,7 @@ class ZipCodeAdder:
                 # Append ZIP code to address if found
                 if zip_code:
                     self.data.at[index, 'Full Address'] = f"{row['Full Address']} {zip_code}"
-
+                    self.added_count+=1
         # Log any failures
         if self.failed_requests:
             print("Failed to retrieve zip codes for the following locations:")
@@ -59,7 +89,12 @@ class ZipCodeAdder:
         return self.data
 
     def _extract_city_state(self, full_address):
-        """Extract and convert city and state to full state name if abbreviated."""
+        """
+        Extracts and converts city and state from the full address string.
+
+        @param full_address: The full address string to extract city and state from.
+        @return: A tuple (city, state) if found, otherwise None.
+        """
         address_parts = full_address.split(',')
         if len(address_parts) >= 2:
             city = address_parts[-2].strip()  # Extract city
@@ -69,7 +104,13 @@ class ZipCodeAdder:
         return None
 
     def _get_zip_code_by_city(self, city, state):
-        """Fetch a zip code for a city/state using the API, with enhanced error handling."""
+        """
+        Fetches a zip code for a given city and state using the Zipcodebase API with error handling.
+
+        @param city: The name of the city.
+        @param state: The full name of the state.
+        @return: The zip code as a string if found, otherwise None.
+        """
         url = "https://app.zipcodebase.com/api/v1/code/city"
         headers = {"apikey": self.api_key}
         params = {
