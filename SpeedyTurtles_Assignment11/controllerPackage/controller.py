@@ -61,6 +61,25 @@ class DataController:
         print(null_anomalies.head())
         self.anomalies = pd.concat([self.anomalies, null_anomalies], ignore_index=True)
 
+        # Step 2: Detect and remove negative 'Transaction Number' values
+        print("\n[Step 2: Detect Negative Transaction Numbers]")
+        self.data, negative_anomalies = null_detector.detect_negatives()
+
+        # Check if `negative_anomalies` contains any rows
+        if not negative_anomalies.empty:
+            print(f"[DEBUG] Negative anomalies detected: {len(negative_anomalies)}")
+            print(f"[DEBUG] Sample of negative anomalies:\n{negative_anomalies.head()}")
+
+        # Add detected negative anomalies to self.anomalies
+        if not negative_anomalies.empty:
+            self.anomalies = pd.concat([self.anomalies, negative_anomalies], ignore_index=True)
+            print(f"Total anomalies after adding negative anomalies: {len(self.anomalies)}")
+        else:
+            print("No negative anomalies detected.")
+
+        # Add detected negative anomalies to self.anomalies
+        self.anomalies = pd.concat([self.anomalies, negative_anomalies], ignore_index=True)
+
         # Step 2: Remove duplicates
         duplicate_remover = DuplicateRowRemover(self.data)
         self.data = duplicate_remover.remove_duplicates()

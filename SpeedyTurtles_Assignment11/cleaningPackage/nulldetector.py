@@ -41,18 +41,46 @@ class NullDetector:
         try:
             transaction_numbers_numeric = pd.to_numeric(self.data['Transaction Number'], errors='coerce')
             negative_rows = self.data[transaction_numbers_numeric < 0]
+            
         except Exception as e:
             print(f"[WARNING] Error converting 'Transaction Number' to numeric: {e}")
             negative_rows = pd.DataFrame()
 
         # Combine anomalies from nulls/invalid strings and negative values
-        anomalies = pd.concat([invalid_rows, negative_rows]).drop_duplicates()
+        anomalies = pd.concat([invalid_rows, negative_rows], ignore_index=True).drop_duplicates()
+
 
 
         # Separate anomalies (unaltered)
-        anomalies = invalid_rows.copy()
+     
 
         # Remove anomalies from the cleaned data
-        cleaned_data = self.data.drop(invalid_rows.index, errors='ignore')
+        cleaned_data = self.data.drop(anomalies.index, errors='ignore')
 
         return cleaned_data, anomalies
+
+    def detect_negatives(self) -> tuple[pd.DataFrame, pd.DataFrame]:
+        """
+        Detects rows where the 'Transaction Number' column contains negative values.
+
+        @return: A tuple containing:
+            - DataFrame with anomalies removed (cleaned data).
+            - DataFrame containing only the rows with negative values.
+        """
+        try:
+            # Convert 'Transaction Number' to numeric, coercing errors into NaNs
+            transaction_numbers_numeric = pd.to_numeric(self.data['Transaction Number'], errors='coerce')
+
+            # Identify rows where 'Transaction Number' is negative
+            negative_rows = self.data[transaction_numbers_numeric < 0]
+            print(f"[DEBUG] Negative rows found: {len(negative_rows)}")
+
+        except Exception as e:
+            print(f"[WARNING] Error converting 'Transaction Number' to numeric: {e}")
+            negative_rows = pd.DataFrame()  # Initialize an empty DataFrame if the conversion fails
+
+        # Remove negative anomalies from the cleaned data
+        cleaned_data = self.data.drop(index=negative_rows.index, errors='ignore')
+
+        # Make sure both cleaned data and negative anomalies are returned
+        return cleaned_data, negative_rows
