@@ -23,8 +23,7 @@ if __name__ == "__main__":
     print(f"File exists: {os.path.exists(file_path)}")  # Check if the file actually exists
 
     # Initialize and run the cleaner
-    try:
-        cleaner = DataController(file_path, api_key)
-        cleaner.clean_data()
-    except Exception as e:
-        print(f"[ERROR] Failed to complete the cleaning process: {e}")
+    
+    cleaner = DataController(file_path, api_key)
+    cleaner.clean_data()
+   

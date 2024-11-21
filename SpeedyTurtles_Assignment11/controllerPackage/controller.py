@@ -94,8 +94,17 @@ class DataController:
         self.anomalies = pd.concat([self.anomalies, non_fuel_anomalies], ignore_index=True)
 
         # Step 5: Add missing zip codes
-        zip_code_adder = ZipCodeAdder(self.data, self.api_key)
-        self.data = zip_code_adder.add_zip_codes()
+        try:
+            zip_code_adder = ZipCodeAdder(self.data, self.api_key)
+            self.data = zip_code_adder.add_zip_codes()
+        except Exception as e:
+            # Handle specific invalid API key errors or general exceptions
+            if "INVALID_API_KEY" in str(e) or "403" in str(e):
+                print("[ERROR] Invalid API Key detected. Skipping ZIP code addition.")
+            elif "503" in str(e):
+                print("[ERROR] API Service Unavailable (503). Skipping ZIP code addition.")
+            else:
+                print(f"[ERROR] Unexpected issue while adding ZIP codes: {e}")
 
         # Step 6: Format addresses
         address_formatter = AddressFormatter(self.data)
