@@ -6,12 +6,11 @@
 # Course #/Section: 4010/001                                                                                                                                           #
 # Semester/Year:   1/4                                                                                                                                                 #
 # Brief Description of the assignment: collaborate with peers to develop a VS project that cleans data from a CSV                                                      #
-# Brief Description of what this module does: This module serves as the entry point for the application, running the full data cleaning pipeline                       #                                       
+# Brief Description of what this module does: This module serves as the entry point for the application, running the full data cleaning program                        #                                       
 #                                                                                                                                                                      #
 # Citations: W3 Schools,GPT 4                                                                                                                                          #
 # Anything else that's relevant:                                                                                                                                       #
 ########################################################################################################################################################################
-
 
 import os
 from CSVPackage.CSVProcessor import *
